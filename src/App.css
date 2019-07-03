@@ -1,3 +1,5 @@
+@import '~antd/dist/antd.css';
+
 .App {
   text-align: center;
 }
@@ -21,6 +23,51 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.input-container{
+  position: relative;
+}
+.input-mask{
+  position: absolute;
+  color: black;
+  z-index: 2;
+  height: 100%;
+  
+}
+
+.input-item{
+  position: static !important;
+  z-index: 1 !important;
+  
+  
+}
+
+.tag{
+  height: 100%;
+  display: inline-block !important;
+  user-select: none;
+}
+
+.tag-inner{
+  height: 100%;
+  border-radius: 5px;
+  background-color: blue;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center；
+}
+
+.tag-text{
+  display: block;
+  line-height: 30px;
+  
+
+}
+.cursor{
+  cursor: pointer;
 }
 
 @keyframes App-logo-spin {
