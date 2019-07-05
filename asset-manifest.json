@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/auto-completion/static/css/main.6820cb15.chunk.css",
-    "main.js": "/auto-completion/static/js/main.d98a32bb.chunk.js",
-    "main.js.map": "/auto-completion/static/js/main.d98a32bb.chunk.js.map",
+    "main.js": "/auto-completion/static/js/main.8275efcb.chunk.js",
+    "main.js.map": "/auto-completion/static/js/main.8275efcb.chunk.js.map",
     "runtime~main.js": "/auto-completion/static/js/runtime~main.96053339.js",
     "runtime~main.js.map": "/auto-completion/static/js/runtime~main.96053339.js.map",
     "static/css/2.510409cd.chunk.css": "/auto-completion/static/css/2.510409cd.chunk.css",
     "static/js/2.37726bf9.chunk.js": "/auto-completion/static/js/2.37726bf9.chunk.js",
     "static/js/2.37726bf9.chunk.js.map": "/auto-completion/static/js/2.37726bf9.chunk.js.map",
     "index.html": "/auto-completion/index.html",
-    "precache-manifest.70b3a9045d684f16bc3ba6c2fdc30ab1.js": "/auto-completion/precache-manifest.70b3a9045d684f16bc3ba6c2fdc30ab1.js",
+    "precache-manifest.f28866e089a549b4783b0c638026786c.js": "/auto-completion/precache-manifest.f28866e089a549b4783b0c638026786c.js",
     "service-worker.js": "/auto-completion/service-worker.js",
     "static/css/2.510409cd.chunk.css.map": "/auto-completion/static/css/2.510409cd.chunk.css.map",
     "static/css/main.6820cb15.chunk.css.map": "/auto-completion/static/css/main.6820cb15.chunk.css.map"
