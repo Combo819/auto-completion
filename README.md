@@ -46,13 +46,13 @@ The function `generateSource` generate some random strings as well as `[value,va
 
 ## Other comments
 ### 1. CSS
-The CSS is a little bit boring and tiring. I spend much time adjusting the CSS. Although I use Bootstrap as the UI Library, I still need to customize some of the style to implement some layouts like tags in the input box and input box's padding
+The CSS is a little bit boring and tiring. I spend much time adjusting the CSS. Although I use Bootstrap as the UI Library, I still need to customize some of the styles to implement some layouts like tags in the input box and input box's padding
 
 ### 2. Size
 The webpage is not responsive. A larger screen is recommended.
 
-### 2. Other Library
+### 3. Other Library
 + [Auto-completion in Antd](https://ant.design/components/auto-complete/)
 + [input number in Antd](https://ant.design/components/input-number/)
-+ [select in antd](https://ant.design/components/select/#components-select-demo-select-users)
-+ [Bootstrap React](https://react-bootstrap.github.io/getting-started/introduction) After I began programming, I noticed there is a Libray: Bootstrap for React. I didn't want to re-write my code, so I didn't adopt this libray.
++ [select in antd](https://ant.design/components/select/#components-select-demo-select-users) However, I prefer to build up these components from scratch as this is a practice.
++ [Bootstrap React](https://react-bootstrap.github.io/getting-started/introduction) After I began programming, I noticed there is a Libray: Bootstrap for React. I didn't want to re-write my code, so I didn't adopt this library.
