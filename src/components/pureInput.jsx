@@ -25,6 +25,7 @@ class PureInput extends Component {
     this.arrFilter = this.arrFilter.bind(this);
     this.dropDownClick = this.dropDownClick.bind(this);
     this.dropDownInputChange = this.dropDownInputChange.bind(this);
+    this.tagsWidthAfterDelete = this.tagsWidthAfterDelete.bind(this)
   }
 
   enterPress = e => {
@@ -130,8 +131,8 @@ class PureInput extends Component {
       const foldIndex = newTags.findIndex(item => {
         return item.fold;
       });
-      //revision needed
-      if (foldIndex !== -1) {
+      if (foldIndex !== -1 && this.tagsWidthAfterDelete(foldIndex)) {
+        
         newTags[foldIndex].fold = false;
       }
     }
@@ -183,7 +184,16 @@ class PureInput extends Component {
         ? this.state.tags.reduce((pre, next) => pre.text + next.text) +
           inputValue
         : inputValue;
-    return totalTags * 60 + totalString.length * 16 > 500;
+    return totalTags * 70 + totalString.length * 16 > 500;
+  }
+
+  tagsWidthAfterDelete(foldIndex){
+    const totalTags = this.state.tags.filter(item => !item.fold).length + 1;
+    const totalString =this.state.tags.reduce((pre, next) => pre.text + next.text) + this.state.tags[foldIndex].text;
+    
+    console.log(totalTags * 60 + totalString.length * 16);
+    
+    return totalTags * 60 + totalString.length * 16 < 500;
   }
 
   submitTag() {
