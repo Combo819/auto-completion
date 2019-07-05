@@ -10,16 +10,7 @@ class PureInput extends Component {
     super(props);
     this.state = {
       tags: [
-        {
-          text: "hello",
-          fold: false,
-          content: ""
-        },
-        {
-          text: "hi",
-          fold: false,
-          content: ""
-        }
+        
       ],
       tableInfo: [],
       source: [],
@@ -139,6 +130,7 @@ class PureInput extends Component {
       const foldIndex = newTags.findIndex(item => {
         return item.fold;
       });
+      //revision needed
       if (foldIndex !== -1) {
         newTags[foldIndex].fold = false;
       }
@@ -363,7 +355,7 @@ class PureInput extends Component {
                   type="button"
                   className="btn btn-primary ml-2"
                 >
-                  Primary
+                  submit
                 </button>
               </div>
               {this.state.inputValue.trim() !== "" ? (
