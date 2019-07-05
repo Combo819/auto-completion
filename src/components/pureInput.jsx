@@ -9,9 +9,7 @@ class PureInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tags: [
-        
-      ],
+      tags: [],
       tableInfo: [],
       source: [],
       inputValue: "",
@@ -25,7 +23,7 @@ class PureInput extends Component {
     this.arrFilter = this.arrFilter.bind(this);
     this.dropDownClick = this.dropDownClick.bind(this);
     this.dropDownInputChange = this.dropDownInputChange.bind(this);
-    this.tagsWidthAfterDelete = this.tagsWidthAfterDelete.bind(this)
+    this.tagsWidthAfterDelete = this.tagsWidthAfterDelete.bind(this);
   }
 
   enterPress = e => {
@@ -126,18 +124,18 @@ class PureInput extends Component {
 
   deleteTag(index) {
     const newTags = [...this.state.tags];
+    newTags.splice(index, 1);
+    let foldIndex = newTags.findIndex(item => {
+      return item.fold;
+    });
+    while (foldIndex !== -1 && this.tagsWidthAfterDelete(newTags, foldIndex)) {
+      console.log(newTags[foldIndex]);
 
-    if (!newTags[index].fold) {
-      const foldIndex = newTags.findIndex(item => {
+      newTags[foldIndex].fold = false;
+      foldIndex = newTags.findIndex(item => {
         return item.fold;
       });
-      if (foldIndex !== -1 && this.tagsWidthAfterDelete(foldIndex)) {
-        
-        newTags[foldIndex].fold = false;
-      }
     }
-    newTags.splice(index, 1);
-
     this.setState(
       {
         tags: newTags
@@ -155,6 +153,7 @@ class PureInput extends Component {
         );
       }
     );
+    
   }
 
   setPadding() {
@@ -162,7 +161,6 @@ class PureInput extends Component {
     const width = window.getComputedStyle(inputMask).getPropertyValue("width");
     const inputItem = document.getElementById("inputItem");
     inputItem.style.paddingLeft = width;
-    console.log(width);
   }
 
   handleChange(event) {
@@ -187,17 +185,17 @@ class PureInput extends Component {
     return totalTags * 70 + totalString.length * 16 > 500;
   }
 
-  tagsWidthAfterDelete(foldIndex){
-    const totalTags = this.state.tags.filter(item => !item.fold).length + 1;
-    const totalString =this.state.tags.reduce((pre, next) => pre.text + next.text) + this.state.tags[foldIndex].text;
-    
-    console.log(totalTags * 60 + totalString.length * 16);
-    
+  tagsWidthAfterDelete(newTags, foldIndex) {
+    const totalTags = newTags.filter(item => !item.fold).length + 1;
+    const totalString =
+      newTags.reduce((pre, next) => pre.text + next.text) +
+      newTags[foldIndex].text;
+
+
     return totalTags * 60 + totalString.length * 16 < 500;
   }
 
   submitTag() {
-    console.log(this.state.tableInfo);
 
     this.setState({
       tableInfo: this.state.tags
