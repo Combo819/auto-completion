@@ -22,6 +22,9 @@ Click on submit button and all the tags' information will be shown in the follow
 ### 1. CSS for submit button
 When adding tags, sometimes the submit button will go down to the next row.
 
+### 2. Length of Tags
+I estimate the whole length of all tags using a formula `totalTags * 60 + totalString.length * 16` rather than get the DOM width attribute. Somethings the hidden tags will not show up though there is enough space after remove a tag. The `60` is an empirical number and `16` is the font size.
+
 ## Future Improvement
 ### 1. Tooltip
 If a very long string is typed in, some part of the suggestion will exceed the box. So I hide the overflowing part. I will try to add a tooltip for the long suggestion options, which appears when the mouse hovers over the option.

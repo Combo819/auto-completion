@@ -25,7 +25,11 @@ class PureInput extends Component {
     this.dropDownInputChange = this.dropDownInputChange.bind(this);
     this.tagsWidthAfterDelete = this.tagsWidthAfterDelete.bind(this);
   }
-
+  /**
+   * @description: When hit Enter in input box
+   * @param {Object} 
+   * @return: None or false
+   */
   enterPress = e => {
     if (!this.state.inputValue) {
       return false;
@@ -63,7 +67,11 @@ class PureInput extends Component {
       }
     );
   };
-
+  /**
+   * @description: filter the auto completion source
+   * @param {type} 
+   * @return: 
+   */
   arrFilter() {
     const value = this.state.inputValue;
     const source = this.state.source;
@@ -83,7 +91,11 @@ class PureInput extends Component {
       sourceFilter
     });
   }
-
+  /**
+   * @description: generate fake auto completion source
+   * @param {number} n total random source
+   * @return: 
+   */
   generateSource(n) {
     const num = n < 40 ? n : 40;
     const source = [];
@@ -121,7 +133,11 @@ class PureInput extends Component {
       }
     );
   }
-
+  /**
+   * @description: remove a tag
+   * @param {number} index the index of the deleted tag
+   * @return: 
+   */
   deleteTag(index) {
     const newTags = [...this.state.tags];
     newTags.splice(index, 1);
@@ -155,14 +171,22 @@ class PureInput extends Component {
     );
     
   }
-
+  /**
+   * @description: set the layout of tags
+   * @param {type} 
+   * @return: 
+   */
   setPadding() {
     const inputMask = document.getElementById("inputMask");
     const width = window.getComputedStyle(inputMask).getPropertyValue("width");
     const inputItem = document.getElementById("inputItem");
     inputItem.style.paddingLeft = width;
   }
-
+  /**
+   * @description: set the input of the main input box
+   * @param {type} 
+   * @return: 
+   */
   handleChange(event) {
     this.setState({ inputValue: event.target.value }, () => {
       if (this.state.inputValue !== "") {
@@ -175,6 +199,11 @@ class PureInput extends Component {
     this.setPadding();
   }
 
+  /**
+   * @description: If tags total width will exceed the input box
+   * @param {string} inputValue the input value in the main input box
+   * @return: Boolean
+   */
   getTagsWidth(inputValue) {
     const totalTags = this.state.tags.filter(item => !item.fold).length;
     const totalString =
@@ -182,19 +211,29 @@ class PureInput extends Component {
         ? this.state.tags.reduce((pre, next) => pre.text + next.text) +
           inputValue
         : inputValue;
-    return totalTags * 70 + totalString.length * 16 > 500;
+    return totalTags * 60 + totalString.length * 16 > 500;
   }
-
+  /**
+   * @description: If tags total width will exceed the input box when remove a tag
+   * @param {array} newTags the tags list
+   * @param {number} foldIndex the first tag whose fold attribute is true
+   * @return: Boolean
+   */
   tagsWidthAfterDelete(newTags, foldIndex) {
-    const totalTags = newTags.filter(item => !item.fold).length + 1;
+    const totalTags = newTags.filter(item => !item.fold).length + foldIndex===newTags.length?0:1;
     const totalString =
       newTags.reduce((pre, next) => pre.text + next.text) +
       newTags[foldIndex].text;
-
+    console.log(totalTags * 60 + totalString.length * 16);
+    
 
     return totalTags * 60 + totalString.length * 16 < 500;
   }
-
+  /**
+   * @description: submit the tags and show them on the table
+   * @param {type} 
+   * @return: 
+   */
   submitTag() {
 
     this.setState({
@@ -202,6 +241,11 @@ class PureInput extends Component {
     });
   }
 
+  /**
+   * @description: when you click on one of the suggested option
+   * @param {number} key the key th option is clicked
+   * @return: 
+   */
   dropDownClick(key) {
     if (!this.state.inputValue) {
       return false;
@@ -234,7 +278,12 @@ class PureInput extends Component {
       }
     );
   }
-
+  /**
+   * @description: one of the input box options changes
+   * @param {object} e input event
+   * @param {number} key the key th option
+   * @return: 
+   */
   dropDownInputChange(e, key) {
     const sourceFilter = [...this.state.sourceFilter];
     sourceFilter[key].content = e.target.value;
