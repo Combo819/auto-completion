@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import TagItem from "./tagItem";
 import DropDown from "./dropDown";
+import Table from "./table";
+import MarginBox from "./marginBox";
 const randomstring = require("randomstring");
 
 class PureInput extends Component {
@@ -19,6 +21,7 @@ class PureInput extends Component {
           content: ""
         }
       ],
+      tableInfo: [],
       source: [],
       inputValue: "",
       moreShow: false,
@@ -32,6 +35,44 @@ class PureInput extends Component {
     this.dropDownClick = this.dropDownClick.bind(this);
     this.dropDownInputChange = this.dropDownInputChange.bind(this);
   }
+
+  enterPress = e => {
+    if (!this.state.inputValue) {
+      return false;
+    }
+    if (this.state.inputValue.trim() === "") {
+      this.setState({
+        inputValue: ""
+      });
+      return false;
+    }
+    this.setState(
+      prevState => ({
+        tags: [
+          ...prevState.tags,
+          {
+            text: prevState.inputValue.trim(),
+            fold:
+              this.getTagsWidth(this.state.inputValue) ||
+              this.state.tags.findIndex(item => item.fold === true) !== -1,
+            content: ""
+          }
+        ],
+        inputValue: ""
+      }),
+      () => {
+        this.setState(
+          {
+            moreShow:
+              this.state.tags.findIndex(item => item.fold === true) !== -1
+          },
+          () => {
+            this.setPadding();
+          }
+        );
+      }
+    );
+  };
 
   arrFilter() {
     const value = this.state.inputValue;
@@ -154,33 +195,11 @@ class PureInput extends Component {
   }
 
   submitTag() {
-    if (!this.state.inputValue) {
-      return false;
-    }
-    this.setState(
-      prevState => ({
-        tags: [
-          ...prevState.tags,
-          {
-            text: prevState.inputValue,
-            fold: this.getTagsWidth(this.state.inputValue),
-            content: randomstring.generate({ length: 10 })
-          }
-        ],
-        inputValue: ""
-      }),
-      () => {
-        this.setState(
-          {
-            moreShow:
-              this.state.tags.findIndex(item => item.fold === true) !== -1
-          },
-          () => {
-            this.setPadding();
-          }
-        );
-      }
-    );
+    console.log(this.state.tableInfo);
+
+    this.setState({
+      tableInfo: this.state.tags
+    });
   }
 
   dropDownClick(key) {
@@ -193,7 +212,9 @@ class PureInput extends Component {
           ...prevState.tags,
           {
             text: this.state.sourceFilter[key].value,
-            fold: this.getTagsWidth(this.state.inputValue),
+            fold:
+              this.getTagsWidth(this.state.inputValue) ||
+              this.state.tags.findIndex(item => item.fold === true) !== -1,
             content: this.state.sourceFilter[key].content
           }
         ],
@@ -281,10 +302,27 @@ class PureInput extends Component {
     };
     return (
       <div>
-        <div className="container">
-          <div className="row">
+        <div style={{ position: "relative" }} className="container">
+          <MarginBox />
+          <div className="row mb-5">
+            <div className="col-sm" />
+            <div className="col-sm h2">Auto Completion</div>
+            <div className="col-sm" />
+          </div>
+
+          <div className="row mt-5">
             <div className="col" />
-            <div className="col-8">
+            <div
+              style={{
+                position: "absolute",
+                zIndex: 1,
+                left: 0,
+                right: "0",
+                marginLeft: " auto",
+                marginRight: "auto"
+              }}
+              className="col-8"
+            >
               <div className="input-group mb-3  input-container ">
                 <div id="inputMask" className="input-mask">
                   {this.state.tags.map((item, key) => {
@@ -314,6 +352,11 @@ class PureInput extends Component {
                   className="form-control input-item"
                   value={this.state.inputValue}
                   onChange={this.handleChange}
+                  onKeyPress={e => {
+                    if (e.key === "Enter") {
+                      this.enterPress(e);
+                    }
+                  }}
                 />
                 <button
                   onClick={this.submitTag.bind(this)}
@@ -323,7 +366,7 @@ class PureInput extends Component {
                   Primary
                 </button>
               </div>
-              {this.state.inputValue !== "" ? (
+              {this.state.inputValue.trim() !== "" ? (
                 <div>
                   {this.state.sourceFilter.map((item, key) => (
                     <div
@@ -334,9 +377,16 @@ class PureInput extends Component {
                         onClick={() => {
                           this.dropDownClick(key);
                         }}
+                        style={{ position: "relative" }}
                         className="row"
                       >
-                        <div className="col-sm">{item.value}</div>
+                        <div
+                          style={{ width: "500px", wordWrap: "break-word" }}
+                          className="overflow-hidden"
+                        >
+                          {item.value}
+                        </div>
+
                         <div
                           style={{ position: "relative" }}
                           className="col-sm"
@@ -351,6 +401,9 @@ class PureInput extends Component {
             </div>
             <div className="col" />
           </div>
+          <MarginBox />
+          <MarginBox />
+          <Table info={this.state.tableInfo} />
         </div>
       </div>
     );
