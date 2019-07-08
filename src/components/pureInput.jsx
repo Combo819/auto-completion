@@ -3,6 +3,8 @@ import TagItem from "./tagItem";
 import DropDown from "./dropDown";
 import Table from "./table";
 import MarginBox from "./marginBox";
+import { Tooltip } from "antd";
+
 const randomstring = require("randomstring");
 
 class PureInput extends Component {
@@ -69,10 +71,10 @@ class PureInput extends Component {
       }
     );
   };
-/**
- * @description: randomly get one color for the tag, which should be different from the previous one
- * @return: {String} color 
- */  
+  /**
+   * @description: randomly get one color for the tag, which should be different from the previous one
+   * @return: {String} color
+   */
 
   getColor() {
     const colors = [
@@ -470,13 +472,25 @@ class PureInput extends Component {
                         style={{ position: "relative" }}
                         className="row"
                       >
-                        <div
+                        {/*  <div
                           style={{ width: "500px", wordWrap: "break-word" }}
                           className="overflow-hidden"
                         >
                           {item.value}
-                        </div>
+                        </div> */}
 
+                        <div
+                          style={{ width: "500px", wordWrap: "break-word" }}
+                          className="overflow-hidden"
+                        >
+                          {this.state.inputValue.length > 18 ? (
+                            <Tooltip title={item.value}>
+                              <span>{item.value}</span>
+                            </Tooltip>
+                          ) : (
+                            <span>{item.value}</span>
+                          )}
+                        </div>
                         <div
                           style={{ position: "relative" }}
                           className="col-sm"

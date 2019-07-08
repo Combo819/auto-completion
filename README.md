@@ -65,4 +65,7 @@ The webpage is not responsive. A larger screen is recommended.
 ### 1. CSS for submit(bug fixed)
 Add a style `{flexWrap:"nowrap"}` for `.input-group` so that the button won't go to the next row. The `.input-group` class has a default css `flex-wrap: wrap;`
 ### 2. Length of Tags(bug fixed)
-Add a pair of brackets so that the program can correctly calculate the number of tags. There is no obvious bugs now.
+Add a pair of brackets so that the program can correctly calculate the number of tags. 
+
+### 3. Tooltips
+add a tooltip when the input string's length is more than 18 and the mouse is hover on the options. The tooltip component is from Antd.
