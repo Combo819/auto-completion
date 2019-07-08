@@ -46,6 +46,7 @@ class DropDown extends Component {
                   crossClick={() => this.props.deleteTag(key)}
                   key={key}
                   text={item.text}
+                  color={item.color}
                 />
               ) : (
                 false

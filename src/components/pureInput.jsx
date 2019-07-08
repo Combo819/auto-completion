@@ -24,6 +24,7 @@ class PureInput extends Component {
     this.dropDownClick = this.dropDownClick.bind(this);
     this.dropDownInputChange = this.dropDownInputChange.bind(this);
     this.tagsWidthAfterDelete = this.tagsWidthAfterDelete.bind(this);
+    this.getColor = this.getColor.bind(this);
   }
   /**
    * @description: When hit Enter in input box
@@ -49,7 +50,8 @@ class PureInput extends Component {
             fold:
               this.getTagsWidth(this.state.inputValue) ||
               this.state.tags.findIndex(item => item.fold === true) !== -1,
-            content: ""
+            content: "",
+            color: this.getColor()
           }
         ],
         inputValue: ""
@@ -67,6 +69,36 @@ class PureInput extends Component {
       }
     );
   };
+/**
+ * @description: randomly get one color for the tag, which should be different from the previous one
+ * @return: {String} color 
+ */  
+
+  getColor() {
+    const colors = [
+      "#ff7875",
+      "#ff9c6e",
+      "#ffc069",
+      "#ffd666",
+      "#fff566",
+      "#d3f261",
+      "#95de64",
+      "#5cdbd3",
+      "#69c0ff",
+      "#85a5ff",
+      "#b37feb",
+      "#ff85c0"
+    ];
+    if (!this.state.tags.length) {
+      return colors[Math.floor(Math.random() * colors.length)];
+    } else {
+      let color = colors[Math.floor(Math.random() * colors.length)];
+      while (color === this.state.tags[this.state.tags.length - 1].color) {
+        color = colors[Math.floor(Math.random() * colors.length)];
+      }
+      return color;
+    }
+  }
   /**
    * @description: filter the auto completion source
    * @param {type}
@@ -221,7 +253,7 @@ class PureInput extends Component {
   tagsWidthAfterDelete(newTags, foldIndex) {
     // a pair of brackets are necessary
     const totalTags =
-      (newTags.filter(item => !item.fold).length) +
+      newTags.filter(item => !item.fold).length +
       (foldIndex === newTags.length ? 0 : 1);
 
     const totalString =
@@ -263,7 +295,8 @@ class PureInput extends Component {
             fold:
               this.getTagsWidth(this.state.inputValue) ||
               this.state.tags.findIndex(item => item.fold === true) !== -1,
-            content: this.state.sourceFilter[key].content
+            content: this.state.sourceFilter[key].content,
+            color: this.getColor()
           }
         ],
         inputValue: ""
@@ -376,7 +409,10 @@ class PureInput extends Component {
               }}
               className="col-8"
             >
-              <div style={{flexWrap:"nowrap"}} className="input-group mb-3  input-container ">
+              <div
+                style={{ flexWrap: "nowrap" }}
+                className="input-group mb-3  input-container "
+              >
                 <div id="inputMask" className="input-mask">
                   {this.state.tags.map((item, key) => {
                     return item.fold ? (
@@ -387,6 +423,7 @@ class PureInput extends Component {
                         key={key}
                         index={key}
                         text={item.text}
+                        color={item.color}
                       />
                     );
                   })}
