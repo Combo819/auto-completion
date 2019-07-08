@@ -67,5 +67,8 @@ Add a style `{flexWrap:"nowrap"}` for `.input-group` so that the button won't go
 ### 2. Length of Tags(bug fixed)
 Add a pair of brackets so that the program can correctly calculate the number of tags. 
 
-### 3. Tooltips
+### 3. Bind colors
+bind a tag with a specified color. It doesn't change when the user adds or deletes other tags.
+
+### 4. Tooltips
 add a tooltip when the input string's length is more than 18 and the mouse is hover on the options. The tooltip component is from Antd.
