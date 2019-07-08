@@ -59,3 +59,10 @@ The webpage is not responsive. A larger screen is recommended.
 + [input number in Antd](https://ant.design/components/input-number/)
 + [select in antd](https://ant.design/components/select/#components-select-demo-select-users) However, I prefer to build up these components from scratch as this is a practice.
 + [Bootstrap React](https://react-bootstrap.github.io/getting-started/introduction) After I began programming, I noticed there is a Libray: Bootstrap for React. I didn't want to re-write my code, so I didn't adopt this library.
+
+
+## Updates on 7 July
+### 1. CSS for submit(bug fixed)
+Add a style `{flexWrap:"nowrap"}` for `.input-group` so that the button won't go to the next row. The `.input-group` class has a default css `flex-wrap: wrap;`
+### 2. Length of Tags(bug fixed)
+Add a pair of brackets so that the program can correctly calculate the number of tags. There is no obvious bugs now.

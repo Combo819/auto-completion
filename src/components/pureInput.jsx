@@ -27,7 +27,7 @@ class PureInput extends Component {
   }
   /**
    * @description: When hit Enter in input box
-   * @param {Object} 
+   * @param {Object}
    * @return: None or false
    */
   enterPress = e => {
@@ -69,8 +69,8 @@ class PureInput extends Component {
   };
   /**
    * @description: filter the auto completion source
-   * @param {type} 
-   * @return: 
+   * @param {type}
+   * @return:
    */
   arrFilter() {
     const value = this.state.inputValue;
@@ -94,7 +94,7 @@ class PureInput extends Component {
   /**
    * @description: generate fake auto completion source
    * @param {number} n total random source
-   * @return: 
+   * @return:
    */
   generateSource(n) {
     const num = n < 40 ? n : 40;
@@ -136,7 +136,7 @@ class PureInput extends Component {
   /**
    * @description: remove a tag
    * @param {number} index the index of the deleted tag
-   * @return: 
+   * @return:
    */
   deleteTag(index) {
     const newTags = [...this.state.tags];
@@ -169,12 +169,11 @@ class PureInput extends Component {
         );
       }
     );
-    
   }
   /**
    * @description: set the layout of tags
-   * @param {type} 
-   * @return: 
+   * @param {type}
+   * @return:
    */
   setPadding() {
     const inputMask = document.getElementById("inputMask");
@@ -184,8 +183,8 @@ class PureInput extends Component {
   }
   /**
    * @description: set the input of the main input box
-   * @param {type} 
-   * @return: 
+   * @param {type}
+   * @return:
    */
   handleChange(event) {
     this.setState({ inputValue: event.target.value }, () => {
@@ -220,22 +219,27 @@ class PureInput extends Component {
    * @return: Boolean
    */
   tagsWidthAfterDelete(newTags, foldIndex) {
-    const totalTags = newTags.filter(item => !item.fold).length + foldIndex===newTags.length?0:1;
+    // a pair of brackets are necessary
+    const totalTags =
+      (newTags.filter(item => !item.fold).length) +
+      (foldIndex === newTags.length ? 0 : 1);
+
     const totalString =
-      newTags.reduce((pre, next) => pre.text + next.text) +
-      newTags[foldIndex].text;
-    console.log(totalTags * 60 + totalString.length * 16);
-    
+      newTags.filter(item => !item.fold).length > 1
+        ? newTags
+            .filter(item => !item.fold)
+            .reduce((pre, next) => pre.text + next.text) +
+          newTags[foldIndex].text
+        : newTags[0].text;
 
     return totalTags * 60 + totalString.length * 16 < 500;
   }
   /**
    * @description: submit the tags and show them on the table
-   * @param {type} 
-   * @return: 
+   * @param {type}
+   * @return:
    */
   submitTag() {
-
     this.setState({
       tableInfo: this.state.tags
     });
@@ -244,7 +248,7 @@ class PureInput extends Component {
   /**
    * @description: when you click on one of the suggested option
    * @param {number} key the key th option is clicked
-   * @return: 
+   * @return:
    */
   dropDownClick(key) {
     if (!this.state.inputValue) {
@@ -282,7 +286,7 @@ class PureInput extends Component {
    * @description: one of the input box options changes
    * @param {object} e input event
    * @param {number} key the key th option
-   * @return: 
+   * @return:
    */
   dropDownInputChange(e, key) {
     const sourceFilter = [...this.state.sourceFilter];
@@ -372,7 +376,7 @@ class PureInput extends Component {
               }}
               className="col-8"
             >
-              <div className="input-group mb-3  input-container ">
+              <div style={{flexWrap:"nowrap"}} className="input-group mb-3  input-container ">
                 <div id="inputMask" className="input-mask">
                   {this.state.tags.map((item, key) => {
                     return item.fold ? (
